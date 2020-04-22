@@ -5,6 +5,27 @@
     <title>My test page</title>
   </head>
   <body>
-    <img src="" alt="My test image">
+    <form id="main_timer" action="./working.html" method="GET">
+      Every 
+      <input type="number" name="first_timeval" value="20"/> 
+      <select id='time' name="first_timeunit">
+        <option value='minutes'>minutes</option>
+        <option value='seconds'>seconds</option>
+        <option value='hours'>hours</option>
+      </select>
+    </br>
+      <input name='activity' placeholder="look away from your screen" maxlength="90">
+    </br>
+      for 
+      <input type="number" name="second_timeval" value="20"/> 
+      <select id='time' name="second_timeunit">
+        <option value='seconds'>seconds</option>
+        <option value='minutes'>minutes</option>
+        <option value='hours'>hours</option>
+      </select>
+    </br>
+      <input type="submit" value="Start" id='submit'>
+    </form>
+    
   </body>
 </html> 
