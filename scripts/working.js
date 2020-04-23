@@ -1,8 +1,15 @@
 const timeLeft = document.querySelector('#timeLeft');
 const activity = document.querySelector('#activity');
 const skipBtn = document.querySelector('#skipBtn');
+const dialog = document.querySelector('dialog')
+
+document.querySelector('#closeDialog').onclick = function() {
+    dialog.close();
+};
 
 window.onload = function() {
+    dialogPolyfill.registerDialog(dialog);
+
     info = this.parseQuery(window.location.search);
 
     let currentDate = new this.Date().getTime();
@@ -16,10 +23,19 @@ window.onload = function() {
     }
 
     timeLeft.textContent = countDowndate.countdown().toString();
-    this.setInterval(function(){
+    let interval = this.setInterval(function(){
         countdownString = countDowndate.countdown().toString();
         if (countdownString == ""){
-            window.location.assign("./resting.html" + window.location.search);
+            clearInterval(interval);
+
+            // Send user a notification that the timer is done
+            let text = "Time to " + activity.textContent;
+            let notification = new Notification('Time to rest', {body: text});
+
+            dialog.show()
+
+            // Start a dialog that the user acknoledges to move forward
+            // window.location.assign("./resting.html" + window.location.search);
         }
         else{
             timeLeft.textContent=countdownString;
