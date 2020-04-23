@@ -45,9 +45,44 @@ function askNotificationPermission() {
     }
 }
 
-const stopBtn = document.querySelector('#stopBtn');
+function registerButtons (skipTargetURL) {
+    const skipBtns = document.querySelectorAll('.skipBtn');
+    const stopBtns = document.querySelectorAll('.stopBtn');
 
-stopBtn.onclick = function () {
-    window.location.assign("./index.html" + window.location.search);
-    return false;
+    for (let button of skipBtns) {
+        button.addEventListener('click', function () {
+            window.location.assign(skipTargetURL + window.location.search);
+            return false;
+        });
+    }
+    for (let button of stopBtns) {
+        button.addEventListener('click', function () {
+            window.location.assign("./index.html" + window.location.search);
+            return false;
+        });
+    }
+}
+
+function handleCountdown(notificationTitle, notificationText)
+{
+    const timeLeft = document.querySelector('#timeLeft');
+    let currentDate = new this.Date().getTime();
+    let countDowndate = moment(currentDate).add(info.first_timeval, info.first_timeunit);
+    timeLeft.textContent = countDowndate.countdown().toString();
+
+    let interval = this.setInterval(function(){
+        countdownString = countDowndate.countdown().toString();
+        if (countdownString == ""){
+            clearInterval(interval);
+
+            // Send user a notification that the timer is done
+            let notification = new Notification(notificationTitle, {body: notificationText});
+
+            // Start a dialog that the user acknowledges to move forward
+            dialog.show();
+
+        } else {
+            timeLeft.textContent=countdownString;
+        }
+    },1000);
 }

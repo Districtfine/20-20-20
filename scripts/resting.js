@@ -1,25 +1,15 @@
-const timeLeft = document.querySelector('#timeLeft');
-const skipBtn = document.querySelector('#skipBtn');
+const dialog = document.querySelector('dialog')
 
 window.onload = function() {
+    registerButtons('./working.html');
+    dialogPolyfill.registerDialog(dialog);
+
     info = this.parseQuery(window.location.search);
 
     let currentDate = new this.Date().getTime();
     let countDowndate = moment(currentDate).add(info.second_timeval, info.second_timeunit);
 
-    timeLeft.textContent = countDowndate.countdown().toString();
-    this.setInterval(function(){
-        countdownString = countDowndate.countdown().toString();
-        if (countdownString == ""){
-            window.open("./working.html" + window.location.search, "_self");
-        }
-        else{
-            timeLeft.textContent=countdownString;
-        }
-    },1000);
-}
-
-skipBtn.onclick = function () {
-    window.location.assign("./working.html" + window.location.search);
-    return false;
+    let notificationTitle ='Rest is over';
+    let notificationText = `${info.firstTimeVal} ${info.firstTimeUnit} timer starting`;
+    handleCountdown(notificationText,notificationTitle);
 }
