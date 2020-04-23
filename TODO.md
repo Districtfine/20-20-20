@@ -1,0 +1,8 @@
+- [x] Have stop reset options to what user specified
+- [ ] Look into how to make events not do default behaviour https://stackoverflow.com/questions/128923/whats-the-effect-of-adding-return-false-to-a-click-event-listener
+- [ ] Look into having a smaller timer text eg. 4:25:10 or 4h 25m 10s rather than 4 hours 25 minutes 10 seconds
+- [x] Don't switch between rest and work right away when timer ends, wait for user feedback
+- [ ] Get audio playing at the end of the timer
+- [ ] Add a pause button
+- [ ] Create option for user to pause on timer completion, or go forward automatically
+- [ ] Create nice timer circle
