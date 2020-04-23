@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>My test page</title>
+    <script src="scripts/common.js" defer></script>
+    <script src="scripts/index.js" defer></script>
   </head>
   <body>
-    <form id="main_timer" action="./working.html" method="GET">
+    <form id="timeSelector" action="./working.html" method="GET">
       Every 
-      <input type="number" name="first_timeval" value="20"/> 
-      <select id='time' name="first_timeunit">
+      <input type="number" id='first_timeval' name='first_timeval' value="20"/> 
+      <select id='first_timeunit' name="first_timeunit">
         <option value='minutes'>minutes</option>
         <option value='seconds'>seconds</option>
         <option value='hours'>hours</option>
@@ -17,8 +19,8 @@
       <input name='activity' placeholder="look away from your screen" maxlength="90">
     </br>
       for 
-      <input type="number" name="second_timeval" value="20"/> 
-      <select id='time' name="second_timeunit">
+      <input type="number" id='second_timeval' name="second_timeval" value="20"/> 
+      <select id='second_timeunit' name="second_timeunit">
         <option value='seconds'>seconds</option>
         <option value='minutes'>minutes</option>
         <option value='hours'>hours</option>
