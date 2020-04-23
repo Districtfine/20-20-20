@@ -68,11 +68,13 @@ function handleCountdown(notificationTitle, notificationText)
     const timeLeft = document.querySelector('#timeLeft');
     let currentDate = new this.Date().getTime();
     let countDowndate = moment(currentDate).add(info.first_timeval, info.first_timeunit);
-    timeLeft.textContent = countDowndate.countdown().toString();
 
+    let countdownString = `${countDowndate.countdown().hours.toString().padStart(2,'0')}:${countDowndate.countdown().minutes.toString().padStart(2,'0')}:${countDowndate.countdown().seconds.toString().padStart(2,'0')}`;
+    timeLeft.textContent = countdownString; 
     let interval = this.setInterval(function(){
-        countdownString = countDowndate.countdown().toString();
-        if (countdownString == ""){
+        countdownString = `${countDowndate.countdown().hours.toString().padStart(2,'0')}:${countDowndate.countdown().minutes.toString().padStart(2,'0')}:${countDowndate.countdown().seconds.toString().padStart(2,'0')}`;
+        timeLeft.textContent=countdownString;
+        if (countDowndate.countdown().toString() == ""){
             clearInterval(interval);
 
             // Send user a notification that the timer is done
@@ -81,8 +83,6 @@ function handleCountdown(notificationTitle, notificationText)
             // Start a dialog that the user acknowledges to move forward
             dialog.show();
 
-        } else {
-            timeLeft.textContent=countdownString;
         }
     },1000);
 }
