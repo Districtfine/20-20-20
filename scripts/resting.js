@@ -10,6 +10,5 @@ window.onload = function() {
     let countDowndate = moment(currentDate).add(info.second_timeval, info.second_timeunit);
 
     let notificationTitle ='Interval Complete';
-    let notificationText = 'Time to get back to work!'
     handleCountdown(notificationTitle,"", './working.html');
 }
