@@ -63,7 +63,7 @@ function registerButtons (skipTargetURL) {
     }
 }
 
-function handleCountdown(notificationTitle, notificationText)
+function handleCountdown(notificationTitle, notificationText, targetURL)
 {
     const timeLeft = document.querySelector('#timeLeft');
     let currentDate = new this.Date().getTime();
@@ -79,9 +79,15 @@ function handleCountdown(notificationTitle, notificationText)
 
             // Send user a notification that the timer is done
             let notification = new Notification(notificationTitle, {body: notificationText});
+            notification.addEventListener('click', function (){
+                window.location.assign(targetURL+window.location.search);
+            });
+            notification.addEventListener('close', function (){
+                window.location.assign(targetURL+window.location.search);
+            });
 
             // Start a dialog that the user acknowledges to move forward
-            dialog.show();
+            document.querySelector('audio').play();
 
         }
     },1000);

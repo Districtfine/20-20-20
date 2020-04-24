@@ -21,6 +21,6 @@ window.onload = function() {
     }
 
     let notificationText = "Time to " + activity.textContent;
-    let notificationTitle ='Time to rest';
-    handleCountdown(notificationText,notificationTitle);
+    let notificationTitle = "Interval Complete";
+    handleCountdown(notificationTitle, notificationText, './resting.html');
 }

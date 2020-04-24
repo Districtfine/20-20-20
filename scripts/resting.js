@@ -9,7 +9,7 @@ window.onload = function() {
     let currentDate = new this.Date().getTime();
     let countDowndate = moment(currentDate).add(info.second_timeval, info.second_timeunit);
 
-    let notificationTitle ='Rest is over';
-    let notificationText = `${info.firstTimeVal} ${info.firstTimeUnit} timer starting`;
-    handleCountdown(notificationText,notificationTitle);
+    let notificationTitle ='Interval Complete';
+    let notificationText = 'Time to get back to work!'
+    handleCountdown(notificationTitle,"", './working.html');
 }
