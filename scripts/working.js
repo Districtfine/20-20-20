@@ -4,9 +4,9 @@ const activity = document.querySelector("#activity");
 // const dialog = document.querySelector("dialog");
 
 
-document.querySelector("#closeDialog").onclick = function() {
-    dialog.close();
-};
+// document.querySelector("#closeDialog").onclick = function() {
+//     dialog.close();
+// };
 
 window.onload = function() {
     common.registerButtons("./resting.html");
