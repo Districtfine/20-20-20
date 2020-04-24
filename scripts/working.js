@@ -1,5 +1,7 @@
+import * as common from "./common.js";
+
 const activity = document.querySelector("#activity");
-const dialog = document.querySelector("dialog");
+// const dialog = document.querySelector("dialog");
 
 
 document.querySelector("#closeDialog").onclick = function() {
@@ -7,10 +9,10 @@ document.querySelector("#closeDialog").onclick = function() {
 };
 
 window.onload = function() {
-    registerButtons("./resting.html");
-    dialogPolyfill.registerDialog(dialog);
+    common.registerButtons("./resting.html");
+    //dialogPolyfill.registerDialog(dialog);
 
-    let info = this.parseQuery(window.location.search);
+    let info = common.parseQuery(window.location.search);
 
 
     if (info.activity.length === 0) {
@@ -22,5 +24,5 @@ window.onload = function() {
 
     let notificationText = "Time to " + activity.textContent;
     let notificationTitle = "Interval Complete";
-    handleCountdown(notificationTitle, notificationText, "./resting.html");
+    common.handleCountdown(notificationTitle, notificationText, "./resting.html", info);
 };

@@ -1,14 +1,13 @@
-const dialog = document.querySelector("dialog");
+import * as common from "./common.js";
+
+// const dialog = document.querySelector("dialog");
 
 window.onload = function() {
-    registerButtons("./working.html");
-    dialogPolyfill.registerDialog(dialog);
+    common.registerButtons("./working.html");
+    //dialogPolyfill.registerDialog(dialog);
 
-    info = this.parseQuery(window.location.search);
-
-    let currentDate = new this.Date().getTime();
-    let countDowndate = moment(currentDate).add(info.second_timeval, info.second_timeunit);
+    let info = common.parseQuery(window.location.search);
 
     let notificationTitle ="Interval Complete";
-    handleCountdown(notificationTitle,"", "./working.html");
+    common.handleCountdown(notificationTitle,"", "./working.html", info);
 };

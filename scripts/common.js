@@ -1,8 +1,8 @@
 // Globals
-isPaused = false;
+var isPaused = false;
 
 
-function parseQuery(queryString) {
+export function parseQuery(queryString) {
     let query = {};
     let pairs = (queryString[0] === "?" ? queryString.substr(1) : queryString).split("&");
     for (let i = 0; i < pairs.length; i++) {
@@ -23,7 +23,7 @@ function checkNotificationPromise() {
 }
 
 // From https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
-function askNotificationPermission() {
+export function askNotificationPermission() {
     // function to actually ask the permissions
     function handlePermission(permission) {
         // Whatever the user answers, we make sure Chrome stores the information
@@ -49,7 +49,7 @@ function askNotificationPermission() {
     }
 }
 
-function registerButtons (skipTargetURL) {
+export function registerButtons (skipTargetURL) {
     const skipBtns = document.querySelectorAll(".skipBtn");
     const stopBtns = document.querySelectorAll(".stopBtn");
     const pauseBtns = document.querySelectorAll(".pauseBtn");
@@ -80,15 +80,15 @@ function registerButtons (skipTargetURL) {
     }
 }
 
-function handleCountdown(notificationTitle, notificationText, targetURL)
+export function handleCountdown(notificationTitle, notificationText, targetURL, info)
 {
     const timeLeft = document.querySelector("#timeLeft");
-    let currentDate = new this.Date().getTime();
+    let currentDate = new Date().getTime();
     let countDowndate = moment(currentDate).add(info.first_timeval, info.first_timeunit);
 
     let countdownString = `${countDowndate.countdown().hours.toString().padStart(2,"0")}:${countDowndate.countdown().minutes.toString().padStart(2,"0")}:${countDowndate.countdown().seconds.toString().padStart(2,"0")}`;
     timeLeft.textContent = countdownString; 
-    let interval = this.setInterval(function(){
+    let interval = setInterval(function(){
         if(isPaused) { // Continually bring forward the countDowndate so that timer won't drift
             countDowndate = moment(countDowndate).add(1, "second");
         } 
