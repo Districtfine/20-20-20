@@ -1,7 +1,7 @@
-const dialog = document.querySelector('dialog')
+const dialog = document.querySelector("dialog");
 
 window.onload = function() {
-    registerButtons('./working.html');
+    registerButtons("./working.html");
     dialogPolyfill.registerDialog(dialog);
 
     info = this.parseQuery(window.location.search);
@@ -9,6 +9,6 @@ window.onload = function() {
     let currentDate = new this.Date().getTime();
     let countDowndate = moment(currentDate).add(info.second_timeval, info.second_timeunit);
 
-    let notificationTitle ='Interval Complete';
-    handleCountdown(notificationTitle,"", './working.html');
-}
+    let notificationTitle ="Interval Complete";
+    handleCountdown(notificationTitle,"", "./working.html");
+};
