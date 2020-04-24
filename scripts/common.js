@@ -1,3 +1,7 @@
+// Globals
+isPaused = false;
+
+
 function parseQuery(queryString) {
     var query = {};
     var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
@@ -48,6 +52,7 @@ function askNotificationPermission() {
 function registerButtons (skipTargetURL) {
     const skipBtns = document.querySelectorAll('.skipBtn');
     const stopBtns = document.querySelectorAll('.stopBtn');
+    const pauseBtns = document.querySelectorAll('.pauseBtn');
 
     for (let button of skipBtns) {
         button.addEventListener('click', function () {
@@ -61,6 +66,11 @@ function registerButtons (skipTargetURL) {
             return false;
         });
     }
+    for (let button of pauseBtns) {
+        button.addEventListener('click', function () {
+            isPaused ? isPaused = false : isPaused = true;
+        });
+    }
 }
 
 function handleCountdown(notificationTitle, notificationText, targetURL)
@@ -72,23 +82,28 @@ function handleCountdown(notificationTitle, notificationText, targetURL)
     let countdownString = `${countDowndate.countdown().hours.toString().padStart(2,'0')}:${countDowndate.countdown().minutes.toString().padStart(2,'0')}:${countDowndate.countdown().seconds.toString().padStart(2,'0')}`;
     timeLeft.textContent = countdownString; 
     let interval = this.setInterval(function(){
-        countdownString = `${countDowndate.countdown().hours.toString().padStart(2,'0')}:${countDowndate.countdown().minutes.toString().padStart(2,'0')}:${countDowndate.countdown().seconds.toString().padStart(2,'0')}`;
-        timeLeft.textContent=countdownString;
-        if (countDowndate.countdown().toString() == ""){
-            clearInterval(interval);
+        if(isPaused) { // Continually bring forward the countDowndate so that timer won't drift
+            countDowndate = moment(countDowndate).add(1, 'second');
+        } 
+        else {
+            countdownString = `${countDowndate.countdown().hours.toString().padStart(2,'0')}:${countDowndate.countdown().minutes.toString().padStart(2,'0')}:${countDowndate.countdown().seconds.toString().padStart(2,'0')}`;
+            timeLeft.textContent=countdownString;
+            if (countDowndate.countdown().toString() == ""){
+                clearInterval(interval);
 
-            // Send user a notification that the timer is done
-            let notification = new Notification(notificationTitle, {body: notificationText});
-            notification.addEventListener('click', function (){
-                window.location.assign(targetURL+window.location.search);
-            });
-            notification.addEventListener('close', function (){
-                window.location.assign(targetURL+window.location.search);
-            });
+                // Send user a notification that the timer is done
+                let notification = new Notification(notificationTitle, {body: notificationText});
+                notification.addEventListener('click', function (){
+                    window.location.assign(targetURL+window.location.search);
+                });
+                notification.addEventListener('close', function (){
+                    window.location.assign(targetURL+window.location.search);
+                });
 
-            // Start a dialog that the user acknowledges to move forward
-            document.querySelector('audio').play();
+                // Start a dialog that the user acknowledges to move forward
+                document.querySelector('audio').play();
 
+            }
         }
     },1000);
 }
