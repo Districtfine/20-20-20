@@ -68,7 +68,14 @@ function registerButtons (skipTargetURL) {
     }
     for (let button of pauseBtns) {
         button.addEventListener('click', function () {
-            isPaused ? isPaused = false : isPaused = true;
+            if (isPaused) {
+                isPaused = false;
+                button.textContent = 'pause';
+            }
+            else {
+                isPaused = true;
+                button.textContent = 'resume';
+            }
         });
     }
 }
