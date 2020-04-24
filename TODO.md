@@ -3,7 +3,7 @@
 - [x] Look into having a smaller timer text eg. 4:25:10 or 4h 25m 10s rather than 4 hours 25 minutes 10 seconds
 - [x] Don't switch between rest and work right away when timer ends, wait for user feedback
 - [x] Get audio playing at the end of the timer
-- [ ] Add a pause button
+- [x] Add a pause button
 - [ ] Create option for user to pause on timer completion, or go forward automatically
 - [ ] Create nice timer circle
 - [ ] Make website robust to user inputs
