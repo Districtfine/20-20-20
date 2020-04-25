@@ -1,33 +1,55 @@
 import * as common from "./common.js";
 
 // Globals
+const intervalLabel = document.querySelector("#currentInterval");
+const timer = document.querySelector("#timeLeft");
+const info = common.parseQuery(window.location.search);
+
 let isPaused = false,
     workingInterval = true,
-    currIntervalID = null;
+    currIntervalID = null,
+    currTimeLeft = moment(new Date().getTime()).add(info.first_timeval, info.first_timeunit);
 
-const intervalLabel = document.querySelector("#currentInterval");
-const timeLeft = document.querySelector("#timeLeft");
 
 window.onload = function () {
     intervalLabel.textContent = "Working Interval";
 
     let notificationTitle = "Interval Complete";
     registerButtons();
-    currIntervalID = startCountdown(notificationTitle, "Next interval started");
 
+    let countdownDate = moment(new Date().getTime()).add(info.first_timeval, info.first_timeunit);
+    currIntervalID = startCountdown(notificationTitle, "Next interval started", countdownDate);
 };
 
-function executeSkip() {
+function skip() {
+    let countdownDate = moment(new Date().getTime()).add(info.second_timeval, info.second_timeunit);
     if (workingInterval) {
         workingInterval = false;
         intervalLabel.textContent = "Resting Interval";
     } else {
         workingInterval = true;
         intervalLabel.textContent = "Working Interval";
+        countdownDate = moment(new Date().getTime()).add(info.first_timeval, info.first_timeunit);
     }
+
     let notificationTitle = "Interval Complete";
-    currIntervalID = startCountdown(notificationTitle, "Next interval started");
+    currIntervalID = startCountdown(notificationTitle, "Next interval started", countdownDate);
     return false;
+}
+
+function pause(button) {
+    if (isPaused) {
+        isPaused = false;
+        let notificationTitle = "Interval Complete";
+        currIntervalID = startCountdown(notificationTitle, "Next interval started",
+            moment(new Date().getTime()).add(currTimeLeft));
+        button.textContent = "pause";
+    }
+    else {
+        isPaused = true;
+        clearInterval(currIntervalID);
+        button.textContent = "resume";
+    }
 }
 
 function registerButtons() {
@@ -36,7 +58,7 @@ function registerButtons() {
     const pauseBtns = document.querySelectorAll(".pauseBtn");
 
     for (let button of skipBtns) {
-        button.addEventListener("click", executeSkip);
+        button.addEventListener("click", skip);
     }
     for (let button of stopBtns) {
         button.addEventListener("click", function () {
@@ -45,16 +67,7 @@ function registerButtons() {
         });
     }
     for (let button of pauseBtns) {
-        button.addEventListener("click", function () {
-            if (isPaused) {
-                isPaused = false;
-                button.textContent = "pause";
-            }
-            else {
-                isPaused = true;
-                button.textContent = "resume";
-            }
-        });
+        button.addEventListener("click", () => pause(button));
     }
 }
 
@@ -67,34 +80,25 @@ ${seconds.toString().padStart(2, "0")}`;
 
 function handleNotificationResponse() {
     isPaused = false;
-    executeSkip();
+    skip();
 }
 
-function startCountdown(notificationTitle, notificationText) {
+function startCountdown(notificationTitle, notificationText, countdownDate) {
     clearInterval(currIntervalID); // Remove any currently running countdowns
 
-    const info = common.parseQuery(window.location.search);
-
-    let currentDate = new Date().getTime();
-    let countdownDate = moment(currentDate).add(info.first_timeval, info.first_timeunit);
-
-    timeLeft.textContent = formatTimeDisplay(countdownDate);
+    timer.textContent = formatTimeDisplay(countdownDate);
     let intervalID = setInterval(function () {
-        if (isPaused) { // Continually bring forward the countDowndate while timer paused so that timer won't drift
-            countdownDate = moment(countdownDate).add(1, "second");
-        }
-        else {
-            timeLeft.textContent = formatTimeDisplay(countdownDate);
-            if (countdownDate.countdown().toString() == "") {
-                isPaused = true;
-                // Send user a notification that the timer is done
-                let notification = new Notification(notificationTitle, { body: notificationText });
-                notification.addEventListener("click", handleNotificationResponse);
-                notification.addEventListener("close", handleNotificationResponse);
+        currTimeLeft = countdownDate.diff(moment(new Date().getTime()));
+        timer.textContent = formatTimeDisplay(countdownDate);
+        if (countdownDate.countdown().toString() == "") {
+            // Send user a notification that the timer is done
+            let notification = new Notification(notificationTitle, { body: notificationText });
+            notification.addEventListener("click", handleNotificationResponse);
+            notification.addEventListener("close", handleNotificationResponse);
 
-                // Start a dialog that the user acknowledges to move forward
-                document.querySelector("audio").play();
-            }
+            // Start a dialog that the user acknowledges to move forward
+            document.querySelector("audio").play();
+            clearInterval(intervalID);
         }
     }, 1000);
 
