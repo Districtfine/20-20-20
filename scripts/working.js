@@ -65,6 +65,11 @@ ${minutes.toString().padStart(2, "0")}:\
 ${seconds.toString().padStart(2, "0")}`;
 }
 
+function handleNotificationResponse() {
+    isPaused = false;
+    executeSkip();
+}
+
 function startCountdown(notificationTitle, notificationText) {
     clearInterval(currIntervalID); // Remove any currently running countdowns
 
@@ -81,14 +86,11 @@ function startCountdown(notificationTitle, notificationText) {
         else {
             timeLeft.textContent = formatTimeDisplay(countdownDate);
             if (countdownDate.countdown().toString() == "") {
+                isPaused = true;
                 // Send user a notification that the timer is done
                 let notification = new Notification(notificationTitle, { body: notificationText });
-                notification.addEventListener("click", function () {
-                    executeSkip(this.intervalID, info);
-                });
-                notification.addEventListener("close", function () {
-                    executeSkip(this.intervalID, info);
-                });
+                notification.addEventListener("click", handleNotificationResponse);
+                notification.addEventListener("close", handleNotificationResponse);
 
                 // Start a dialog that the user acknowledges to move forward
                 document.querySelector("audio").play();
