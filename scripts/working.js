@@ -13,7 +13,7 @@ window.onload = function () {
 
     let notificationTitle = "Interval Complete";
     registerButtons();
-    currIntervalID = startCountdown(notificationTitle, "");
+    currIntervalID = startCountdown(notificationTitle, "Next interval started");
 
 };
 
@@ -26,7 +26,7 @@ function executeSkip() {
         intervalLabel.textContent = "Working Interval";
     }
     let notificationTitle = "Interval Complete";
-    currIntervalID = startCountdown(notificationTitle, "");
+    currIntervalID = startCountdown(notificationTitle, "Next interval started");
     return false;
 }
 
