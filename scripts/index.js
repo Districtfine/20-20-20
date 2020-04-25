@@ -1,12 +1,12 @@
 import * as common from "./common.js";
 
-function selectElement(id, valueToSelect) {    
+function selectElement(id, valueToSelect) {
     let element = document.getElementById(id);
     element.value = valueToSelect;
 }
 
-window.onload = function() {
-    if(window.location.search.length !== 0){
+window.onload = function () {
+    if (window.location.search.length !== 0) {
         let info = this.parseQuery(window.location.search);
 
         selectElement("first_timeunit", info.first_timeunit);

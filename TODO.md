@@ -8,4 +8,4 @@
 - [ ] Create nice timer circle
 - [ ] Make website robust to user inputs
 - [ ] Look into importing vs just having a script tag above
-- [ ] Move countdown, moment, and dialog-polyfill to npm
+- [ ] Implement fall back if user does not allow notifications

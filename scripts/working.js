@@ -1,21 +1,100 @@
 import * as common from "./common.js";
 
-const activity = document.querySelector("#activity");
+// Globals
+let isPaused = false,
+    workingInterval = true,
+    currIntervalID = null;
 
-window.onload = function() {
-    common.registerButtons("./resting.html");
+const intervalLabel = document.querySelector("#currentInterval");
+const timeLeft = document.querySelector("#timeLeft");
 
-    let info = common.parseQuery(window.location.search);
+window.onload = function () {
+    intervalLabel.textContent = "Working Interval";
 
-
-    if (info.activity.length === 0) {
-        activity.textContent = "look away from your screen";
-    }
-    else {
-        activity.textContent = info.activity.replace(/\+/g, " ");
-    }
-
-    let notificationText = "Time to " + activity.textContent;
     let notificationTitle = "Interval Complete";
-    common.handleCountdown(notificationTitle, notificationText, "./resting.html", info);
+    registerButtons();
+    currIntervalID = startCountdown(notificationTitle, "");
+
 };
+
+function executeSkip() {
+    if (workingInterval) {
+        workingInterval = false;
+        intervalLabel.textContent = "Resting Interval";
+    } else {
+        workingInterval = true;
+        intervalLabel.textContent = "Working Interval";
+    }
+    let notificationTitle = "Interval Complete";
+    currIntervalID = startCountdown(notificationTitle, "");
+    return false;
+}
+
+function registerButtons() {
+    const skipBtns = document.querySelectorAll(".skipBtn");
+    const stopBtns = document.querySelectorAll(".stopBtn");
+    const pauseBtns = document.querySelectorAll(".pauseBtn");
+
+    for (let button of skipBtns) {
+        button.addEventListener("click", executeSkip);
+    }
+    for (let button of stopBtns) {
+        button.addEventListener("click", function () {
+            window.location.assign("./index.html" + window.location.search);
+            return false;
+        });
+    }
+    for (let button of pauseBtns) {
+        button.addEventListener("click", function () {
+            if (isPaused) {
+                isPaused = false;
+                button.textContent = "pause";
+            }
+            else {
+                isPaused = true;
+                button.textContent = "resume";
+            }
+        });
+    }
+}
+
+function formatTimeDisplay(countdownDate) {
+    const { hours, minutes, seconds } = countdownDate.countdown();
+    return `${hours.toString().padStart(2, "0")}:\
+${minutes.toString().padStart(2, "0")}:\
+${seconds.toString().padStart(2, "0")}`;
+}
+
+function startCountdown(notificationTitle, notificationText) {
+    clearInterval(currIntervalID); // Remove any currently running countdowns
+
+    const info = common.parseQuery(window.location.search);
+
+    let currentDate = new Date().getTime();
+    let countdownDate = moment(currentDate).add(info.first_timeval, info.first_timeunit);
+
+    timeLeft.textContent = formatTimeDisplay(countdownDate);
+    let intervalID = setInterval(function () {
+        if (isPaused) { // Continually bring forward the countDowndate while timer paused so that timer won't drift
+            countdownDate = moment(countdownDate).add(1, "second");
+        }
+        else {
+            timeLeft.textContent = formatTimeDisplay(countdownDate);
+            if (countdownDate.countdown().toString() == "") {
+                // Send user a notification that the timer is done
+                let notification = new Notification(notificationTitle, { body: notificationText });
+                notification.addEventListener("click", function () {
+                    executeSkip(this.intervalID, info);
+                });
+                notification.addEventListener("close", function () {
+                    executeSkip(this.intervalID, info);
+                });
+
+                // Start a dialog that the user acknowledges to move forward
+                document.querySelector("audio").play();
+            }
+        }
+    }, 1000);
+
+    return intervalID;
+}
