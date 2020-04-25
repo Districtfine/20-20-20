@@ -1,16 +1,9 @@
 import * as common from "./common.js";
 
 const activity = document.querySelector("#activity");
-// const dialog = document.querySelector("dialog");
-
-
-// document.querySelector("#closeDialog").onclick = function() {
-//     dialog.close();
-// };
 
 window.onload = function() {
     common.registerButtons("./resting.html");
-    //dialogPolyfill.registerDialog(dialog);
 
     let info = common.parseQuery(window.location.search);
 
