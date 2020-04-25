@@ -7,5 +7,5 @@
 - [ ] Create option for user to pause on timer completion, or go forward automatically
 - [ ] Create nice timer circle
 - [ ] Make website robust to user inputs
-- [ ] Look into importing vs just having a script tag above
+- [x] Look into importing vs just having a script tag above
 - [ ] Implement fall back if user does not allow notifications
