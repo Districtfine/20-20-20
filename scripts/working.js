@@ -123,6 +123,7 @@ let timer = new Timer(info.first_timeval, info.first_timeunit, info.second_timev
 
 
 window.onload = function () {
+    askNotificationPermission();
     intervalLabel.textContent = "Working Interval";
 
     registerButtons();
@@ -149,4 +150,43 @@ function registerButtons() {
     for (let button of pauseBtns) {
         button.addEventListener("click", () => timer.togglePause(button));
     }
+}
+
+// From https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API
+function askNotificationPermission() {
+    // function to actually ask the permissions
+    function handlePermission(permission) {
+        // Whatever the user answers, we make sure Chrome stores the information
+        if (!("permission" in Notification)) {
+            Notification.permission = permission;
+        }
+    }
+
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+        console.log("This browser does not support notifications.");
+    }
+    else {
+        if (checkNotificationPromise()) {
+            Notification.requestPermission()
+                .then((permission) => {
+                    handlePermission(permission);
+                });
+        }
+        else {
+            Notification.requestPermission(function (permission) {
+                handlePermission(permission);
+            });
+        }
+    }
+}
+
+function checkNotificationPromise() {
+    try {
+        Notification.requestPermission().then();
+    } catch (e) {
+        return false;
+    }
+
+    return true;
 }
