@@ -9,3 +9,5 @@
 - [ ] Make website robust to user inputs
 - [x] Look into importing vs just having a script tag above
 - [ ] Implement fall back if user does not allow notifications
+- [ ] Make notifications and controls in browser play nice with each other
+- [x] Use class to encapsulate the timer
