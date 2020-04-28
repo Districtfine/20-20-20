@@ -14,6 +14,7 @@ class Timer {
         this.workingInterval = workingInterval;
         this.notificationTitle = "Interval Complete";
         this.notificationBody = "Next interval started";
+        this.isFinished = false;
         this.isPaused = false;
         if (this.workingInterval) {
             this.currTimeLeft = moment(new Date().getTime()).add(this.workingTimeval, this.workingTimeUnit).diff(moment(new Date().getTime()));
@@ -37,14 +38,15 @@ ${seconds.toString().padStart(2, "0")}`;
         timeDisplay.textContent = this.formatTimeDisplay(countdownDate);
         if (countdownDate.countdown().toString() == "") {
             this.setCircleDasharray(0);
-            // Send user a notification that the timer is done
-            let notification = new Notification(this.notificationTitle, { body: this.notificationBody });
-            notification.addEventListener("show", () => this.handleNotificationResponse());
-
-            // Sleep for a second to allow timer to run out
-
-            // Start a dialog that the user acknowledges to move forward
             document.querySelector("audio").play();
+            if (checkNotificationPromise()) {
+                // Send user a notification that the timer is done
+                let notification = new Notification(this.notificationTitle, { body: this.notificationBody });
+                notification.addEventListener("show", () => this.handleNotificationResponse(2000));
+            }
+
+            this.isFinished = true;
+            // Start a dialog that the user acknowledges to move forward
             clearInterval(this.currIntervalID);
         }
     }
@@ -58,19 +60,27 @@ ${seconds.toString().padStart(2, "0")}`;
     }
 
     togglePause(button) {
-        if (this.isPaused) {
-            this.isPaused = false;
-            this.startCountdown();
-            button.innerHTML = `<i class="material-icons">pause</i>`;
+        if (this.isFinished) {
+            if (!checkNotificationPromise()) {
+                this.handleNotificationResponse(0);
+            }
         }
         else {
-            this.isPaused = true;
-            clearInterval(this.currIntervalID);
-            button.innerHTML = `<i class="material-icons">play_arrow</i>`;
+            if (this.isPaused) {
+                this.isPaused = false;
+                this.startCountdown();
+                button.innerHTML = `<i class="material-icons">pause</i>`;
+            }
+            else {
+                this.isPaused = true;
+                clearInterval(this.currIntervalID);
+                button.innerHTML = `<i class="material-icons">play_arrow</i>`;
+            }
         }
     }
 
     skip() {
+        this.isFinished = false;
         timerLine.setAttribute("transition", "0s linear all");
         this.setCircleDasharray(this.initialTimeLeft);
         timerLine.setAttribute("transition", "1s linear all");
@@ -101,9 +111,9 @@ ${seconds.toString().padStart(2, "0")}`;
         return rawTimeFraction - (1 / initialTimeLeft) * (1 - rawTimeFraction);
     }
 
-    handleNotificationResponse() {
+    handleNotificationResponse(delay) {
         this.isPaused = false;
-        setTimeout(() => this.skip(), 2500);
+        setTimeout(() => this.skip(), delay);
     }
 
     setCircleDasharray(timeLeft) {

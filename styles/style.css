@@ -100,6 +100,10 @@
     -moz-appearance: none;
 }
 
+.timer-controls button::-moz-focus-inner{
+  border:none;
+}
+
 .timer-controls button:hover{
     background: #0053ba;
 }
