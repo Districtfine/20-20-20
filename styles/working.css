@@ -4,9 +4,18 @@
   --timer-width: 500px;
 }
 
+body{
+  margin: 0;
+  padding: 0;
+  background: #172A3A;
+  font-family: 'Courier Prime', monospace;
+  color: white;
+}
+
 /* Sets the containers height and width */
 .base-timer {
   position: relative;
+  margin: auto auto auto auto;
   width: var(--timer-width);
   height: var(--timer-height);
  }
@@ -34,7 +43,7 @@
   /* Keep the label aligned to the top */
   top: 0;
   
-  /* Create a flexible box that centers content vertically and horizontally */
+  /* Create a grid centers content vertically and horizontally */
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
@@ -42,7 +51,7 @@
 
 #current-interval{
   grid-column: 2 / 3;
-  font-size: 30px;
+  font-size: 35px;
   text-align: center;
   margin: 40% auto auto auto;
 }
@@ -85,15 +94,17 @@
 }
 
 .timer-controls button {
-    border: none;
+    box-sizing: border-box;
+    padding:1px;
+    border: 2px solid white;
     border-radius: 20%;
     margin: 40% auto auto auto;
     width: 40px;
     height: 40px;
-    background: #0069ed;
+    background: #172A3A;
     color: #ffffff;
     cursor: pointer;
-    text-align: center;
+    /* text-align: center; */
     transition: background 250ms ease-in-out, 
                 transform 150ms ease;
     -webkit-appearance: none;

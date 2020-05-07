@@ -4,10 +4,11 @@
 - [x] Don't switch between rest and work right away when timer ends, wait for user feedback
 - [x] Get audio playing at the end of the timer
 - [x] Add a pause button
-- [ ] Create option for user to pause on timer completion, or go forward automatically
-- [ ] Create nice timer circle
-- [ ] Make website robust to user inputs
+- [x] Create nice timer circle
+- [x] Make website robust to user inputs
 - [x] Look into importing vs just having a script tag above
-- [ ] Implement fall back if user does not allow notifications
-- [ ] Make notifications and controls in browser play nice with each other
+- [x] Implement fall back if user does not allow notifications
+- [x] Make notifications and controls in browser play nice with each other
 - [x] Use class to encapsulate the timer
+- [x] Make start page look nice
+- [x] Center up timer page and make it look nice
