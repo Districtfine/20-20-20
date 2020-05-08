@@ -1,5 +1,5 @@
 :root{
-  --path-time-color: green;
+  --path-time-color: #09BC8A;
   --timer-height: 500px;
   --timer-width: 500px;
 }
@@ -30,7 +30,7 @@ body{
  /* The SVG path that displays the timer's progress */
 .base-timer .path-elapsed {
   stroke-width: 5px;
-  stroke: grey;
+  stroke: white;
  }
 
 .inside-timer{
@@ -69,7 +69,6 @@ body{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-
 
  #path-remaining{
   /* Just as thick as the original ring */
