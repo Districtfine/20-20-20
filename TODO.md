@@ -12,3 +12,8 @@
 - [x] Use class to encapsulate the timer
 - [x] Make start page look nice
 - [x] Center up timer page and make it look nice
+- [ ] Get safari (iOS) working, look into broader cross-browser support
+- [ ] Get mobile to look nice
+- [ ] Tidy up CSS
+- [ ] Get a favicon
+- [ ] Convert website into SPA
