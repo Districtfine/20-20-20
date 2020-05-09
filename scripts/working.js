@@ -6,21 +6,22 @@ class Timer {
     alert_threshold = 5;
     currIntervalID = null;
 
-    constructor(workingTimeVal, workingTimeUnit, restingTimeVal, restingTimeUnit, workingInterval) {
-        this.workingTimeval = workingTimeVal;
-        this.workingTimeUnit = workingTimeUnit;
-        this.restingTimeVal = restingTimeVal;
-        this.restingTimeUnit = restingTimeUnit;
-        this.workingInterval = workingInterval;
+    constructor(timerSettings, timerElements, isWorkingInterval) {
+        this.timerSettings = timerSettings;
+        this.timerElements = timerElements;
+        this.isWorkingInterval = isWorkingInterval;
+
         this.notificationTitle = "Interval Complete";
         this.notificationBody = "Next interval started";
         this.isFinished = false;
         this.isPaused = false;
-        if (this.workingInterval) {
-            this.currTimeLeft = moment(new Date().getTime()).add(this.workingTimeval, this.workingTimeUnit).diff(moment(new Date().getTime()));
+        if (this.isWorkingInterval) {
+            this.currTimeLeft = moment(new Date().getTime()).add(this.timerSettings.first_timeval,
+                this.timerSettings.first_timeunit).diff(moment(new Date().getTime()));
         }
         else {
-            this.currTimeLeft = moment(new Date().getTime()).add(this.workingTimeval, this.workingTimeUnit).diff(moment(new Date().getTime()));
+            this.currTimeLeft = moment(new Date().getTime()).add(this.timerSettings.second_timeval,
+                this.timerSettings.second_timeunit).diff(moment(new Date().getTime()));
         }
         this.initialTimeLeft = this.currTimeLeft;
     }
@@ -35,13 +36,14 @@ ${seconds.toString().padStart(2, "0")}`;
     tickCounter(countdownDate) {
         this.currTimeLeft = countdownDate.diff(moment(new Date().getTime()));
         this.setCircleDasharray(this.currTimeLeft);
-        timeDisplay.textContent = this.formatTimeDisplay(countdownDate);
+        this.timerElements.timeDisplay.textContent = this.formatTimeDisplay(countdownDate);
         if (countdownDate.countdown().toString() == "") {
             this.setCircleDasharray(0);
             document.querySelector("audio").play();
             if (checkNotificationPromise()) {
                 // Send user a notification that the timer is done
-                let notification = new Notification(this.notificationTitle, { body: this.notificationBody });
+                let notification = new Notification(this.notificationTitle,
+                    { body: this.notificationBody });
                 notification.addEventListener("show", () => this.handleNotificationResponse(2000));
             }
 
@@ -55,7 +57,7 @@ ${seconds.toString().padStart(2, "0")}`;
         clearInterval(this.currIntervalID);
         let countdownDate = moment(new Date().getTime()).add(this.currTimeLeft);
 
-        timeDisplay.textContent = this.formatTimeDisplay(countdownDate);
+        this.timerElements.timeDisplay.textContent = this.formatTimeDisplay(countdownDate);
         this.currIntervalID = setInterval(() => this.tickCounter(countdownDate), 500);
     }
 
@@ -81,9 +83,9 @@ ${seconds.toString().padStart(2, "0")}`;
 
     skip() {
         this.isFinished = false;
-        timerLine.setAttribute("transition", "0s linear all");
+        this.timerElements.timerLine.setAttribute("transition", "0s linear all");
         this.setCircleDasharray(this.initialTimeLeft);
-        timerLine.setAttribute("transition", "1s linear all");
+        this.timerElements.timerLine.setAttribute("transition", "1s linear all");
         // Return pause buttons to unpaused state
         const pauseBtns = document.querySelectorAll(".pauseBtn");
         for (let button of pauseBtns) {
@@ -93,12 +95,14 @@ ${seconds.toString().padStart(2, "0")}`;
 
         if (this.workingInterval) {
             this.workingInterval = false;
-            intervalLabel.textContent = "Resting Interval";
-            this.currTimeLeft = moment(new Date().getTime()).add(this.restingTimeVal, this.restingTimeUnit).diff(moment(new Date().getTime()));
+            this.timerElements.intervalLabel.textContent = "Resting Interval";
+            this.currTimeLeft = moment(new Date().getTime()).add(this.timerSettings.first_timeval,
+                this.timerSettings.first_timeunit).diff(moment(new Date().getTime()));
         } else {
             this.workingInterval = true;
-            intervalLabel.textContent = "Working Interval";
-            this.currTimeLeft = moment(new Date().getTime()).add(this.workingTimeval, this.workingTimeUnit).diff(moment(new Date().getTime()));
+            this.timerElements.intervalLabel.textContent = "Working Interval";
+            this.currTimeLeft = moment(new Date().getTime()).add(this.timerSettings.second_timeval,
+                this.timerSettings.second_timeunit).diff(moment(new Date().getTime()));
         }
         this.initialTimeLeft = this.currTimeLeft;
         this.startCountdown();
@@ -120,21 +124,23 @@ ${seconds.toString().padStart(2, "0")}`;
         const circleDasharray = `${(
             this.calculateTimeFraction(timeLeft, this.initialTimeLeft) * this.full_dash_array
         ).toFixed(0)} 283`;
-        timerLine.setAttribute("stroke-dasharray", circleDasharray);
+        this.timerElements.timerLine.setAttribute("stroke-dasharray", circleDasharray);
     }
 }
 
 // Globals
-const intervalLabel = document.querySelector("#current-interval");
-const timeDisplay = document.querySelector("#time-left-display");
-const timerLine = document.getElementById("path-remaining");
-const info = common.parseQuery(window.location.search);
-let timer = new Timer(info.first_timeval, info.first_timeunit, info.second_timeval, info.second_timeunit, true);
+let timerElements = {
+    intervalLabel: document.querySelector("#current-interval"),
+    timeDisplay: document.querySelector("#time-left-display"),
+    timerLine: document.getElementById("path-remaining")
+};
+const timerSettings = common.parseQuery(window.location.search);
+let timer = new Timer(timerSettings, timerElements, true);
 
 
 window.onload = function () {
     askNotificationPermission();
-    intervalLabel.textContent = "Working Interval";
+    timerElements.intervalLabel.textContent = "Working Interval";
 
     registerButtons();
 
