@@ -17,3 +17,4 @@
 - [ ] Tidy up CSS
 - [ ] Get a favicon
 - [x] Convert website into SPA
+- [ ] Add some nice transitions when timer appears
