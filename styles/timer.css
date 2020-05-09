@@ -4,31 +4,24 @@
   --timer-width: 500px;
 }
 
-body{
-  margin: 0;
-  padding: 0;
-  background: #172A3A;
-  font-family: 'Courier Prime', monospace;
-  color: white;
-}
-
 /* Sets the containers height and width */
-.base-timer {
+#base-timer {
   position: relative;
   margin: auto auto auto auto;
   width: var(--timer-width);
   height: var(--timer-height);
+  font-family: 'Courier Prime', monospace;
+  color: white;
  }
 
-
 /* Removes SVG styling that would hide the time label */
-.base-timer .circle {
+#base-timer .circle {
   fill: none;
   stroke: none;
  }
 
  /* The SVG path that displays the timer's progress */
-.base-timer .path-elapsed {
+#base-timer .path-elapsed {
   stroke-width: 5px;
   stroke: white;
  }

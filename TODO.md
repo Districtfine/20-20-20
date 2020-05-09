@@ -16,4 +16,4 @@
 - [ ] Get mobile to look nice
 - [ ] Tidy up CSS
 - [ ] Get a favicon
-- [ ] Convert website into SPA
+- [x] Convert website into SPA
