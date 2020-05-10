@@ -4,10 +4,17 @@
   --timer-width: 500px;
 }
 
+@media (max-width: 500px) { 
+  :root {
+    --timer-height: 100vw;
+    --timer-width: 100vw;
+  }
+}
+
 /* Sets the containers height and width */
 #base-timer {
   position: relative;
-  margin: auto auto auto auto;
+  margin: auto;
   width: var(--timer-width);
   height: var(--timer-height);
   font-family: 'Courier Prime', monospace;
@@ -87,10 +94,10 @@
 
 .timer-controls button {
     box-sizing: border-box;
+    margin: 0 auto 0 auto;
     padding:1px;
     border: 2px solid white;
     border-radius: 20%;
-    margin: 40% auto auto auto;
     width: 40px;
     height: 40px;
     background: #172A3A;
@@ -101,6 +108,12 @@
                 transform 150ms ease;
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+@media (min-width: 500px) { 
+  .timer-controls button{
+    margin: 40% auto auto auto;
+  }
 }
 
 .timer-controls button::-moz-focus-inner{

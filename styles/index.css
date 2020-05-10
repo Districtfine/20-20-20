@@ -36,14 +36,14 @@ input, select{
 header {
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  padding: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
   background-color: #172A3A;
 }
 
 main {
   font-family: 'Montserrat', sans-serif;
   text-align: left;
-  margin: 0 20% auto 20%;
   font-size: 1.1rem;
   background-color: white;
   padding: 1rem;
@@ -55,4 +55,10 @@ main {
 
 main p{
   color: black;
+}
+
+@media (min-width: 1200px) { 
+  main {
+    margin: 0 20% auto 20%;
+  }
 }
