@@ -1,58 +1,58 @@
 #time-selector{
-   margin-top: 1em;
-   margin-bottom: 1em;
-   font-size: 1.2rem;
-   color: white;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 1.2rem;
+  color: white;
 }
 h2{
-   font-family: 'Montserrat', sans-serif;
-   color: white;
-   font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 2rem;
 }
 
 body{
-   margin: 0;
-   padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 input{
-   width: 70px;
+  width: 70px;
 }
 
 input, select{
-   box-sizing: border-box;
-   font-family: 'Montserrat', sans-serif;
-   font-size: 1rem;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
 }
 
 #submit{
-   font-family: 'Montserrat', sans-serif;
-   box-sizing: border-box;
-   height: auto;
-   width: auto;
-   margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  height: auto;
+  width: auto;
+  margin-top: 20px;
 }
 
 header {
-   font-family: 'Montserrat', sans-serif;
-   text-align: center;
-   padding: 2em;
-   background-color: #172A3A;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  padding: 2em;
+  background-color: #172A3A;
 }
 
 main {
-   font-family: 'Montserrat', sans-serif;
-   text-align: left;
-   margin: 0 20% auto 20%;
-   font-size: 1.1rem;
-   background-color: white;
-   padding: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  margin: 0 20% auto 20%;
+  font-size: 1.1rem;
+  background-color: white;
+  padding: 1rem;
 }
 
 #first-para{
-   margin: 0;
+  margin: 0;
 }
 
 main p{
-   color: black;
+  color: black;
 }
