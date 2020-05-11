@@ -1,0 +1,25 @@
+{
+  "name": "20-20-20",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel scripts -d trans"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Districtfine/20-20-20.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Districtfine/20-20-20/issues"
+  },
+  "homepage": "https://github.com/Districtfine/20-20-20#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0"
+  }
+}
