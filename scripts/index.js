@@ -201,12 +201,24 @@ window.onload = function () {
     registerButtons();
 };
 
-function startTimer(event) {
-    let form = document.getElementById("time-selector");
-    let timerElem = document.getElementById("base-timer");
+function setFormVisiblity(isFormVisible) {
+    const form = document.getElementById("time-selector");
+    const startBtn = document.getElementById("start");
+    const timerElem = document.getElementById("base-timer");
+    if (isFormVisible) {
+        timerElem.setAttribute("hidden", " ");
+        startBtn.removeAttribute("hidden");
+        form.removeAttribute("hidden");
+    }
+    else {
+        timerElem.removeAttribute("hidden");
+        startBtn.setAttribute("hidden", " ");
+        form.setAttribute("hidden", " ");
+    }
+}
 
-    form.setAttribute("hidden", " ");
-    timerElem.removeAttribute("hidden");
+function startTimer(event) {
+    setFormVisiblity(false);
 
     let timerSettings = {
         working_timeVal: document.getElementById("working_timeVal").value,
@@ -222,12 +234,9 @@ function startTimer(event) {
     event.preventDefault();
 }
 
-function stopTimer() {
-    let form = document.getElementById("time-selector");
-    let timerElem = document.getElementById("base-timer");
 
-    timerElem.setAttribute("hidden", " ");
-    form.removeAttribute("hidden");
+function stopTimer() {
+    setFormVisiblity(true);
 
     timer.stop();
 }
@@ -236,9 +245,9 @@ function registerButtons() {
     const skipBtns = document.querySelectorAll(".skipBtn");
     const stopBtns = document.querySelectorAll(".stopBtn");
     const pauseBtns = document.querySelectorAll(".pauseBtn");
-    const form = document.getElementById("time-selector");
+    const startBtn = document.getElementById("start");
 
-    form.addEventListener("submit", startTimer);
+    startBtn.addEventListener("click", startTimer);
 
     for (let button of skipBtns) {
         button.addEventListener("click", () => timer.skip());

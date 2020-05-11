@@ -1,6 +1,4 @@
 #time-selector{
-  margin-top: 1em;
-  margin-bottom: 1em;
   font-size: 1.2rem;
   color: white;
 }
@@ -25,7 +23,7 @@ input, select{
   font-size: 1rem;
 }
 
-#submit{
+#start{
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
   height: auto;
