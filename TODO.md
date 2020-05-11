@@ -18,3 +18,4 @@
 - [ ] Get a favicon
 - [x] Convert website into SPA
 - [ ] Add some nice transitions when timer appears
+- [ ] Setup automated build to trans instead of manually doing it

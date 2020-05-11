@@ -131,6 +131,12 @@ ${seconds.toString().padStart(2, "0")}`;
 
     stop() {
         clearInterval(this.currIntervalID);
+        // Return pause buttons to unpaused state
+        const pauseBtns = document.querySelectorAll(".pauseBtn");
+        for (let button of pauseBtns) {
+            button.innerHTML = `<i class="material-icons">pause</i>`;
+            this.isPaused = false;
+        }
         this.setCircleDasharray(this.initialTimeLeft);
     }
 

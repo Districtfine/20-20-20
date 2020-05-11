@@ -147,14 +147,6 @@ var Timer = function () {
         key: "stop",
         value: function stop() {
             clearInterval(this.currIntervalID);
-            this.setCircleDasharray(this.initialTimeLeft);
-        }
-    }, {
-        key: "skip",
-        value: function skip() {
-            clearInterval(this.currIntervalID);
-            this.isFinished = false;
-            this.setCircleDasharray(this.initialTimeLeft);
             // Return pause buttons to unpaused state
             var pauseBtns = document.querySelectorAll(".pauseBtn");
             var _iteratorNormalCompletion = true;
@@ -179,6 +171,42 @@ var Timer = function () {
                 } finally {
                     if (_didIteratorError) {
                         throw _iteratorError;
+                    }
+                }
+            }
+
+            this.setCircleDasharray(this.initialTimeLeft);
+        }
+    }, {
+        key: "skip",
+        value: function skip() {
+            clearInterval(this.currIntervalID);
+            this.isFinished = false;
+            this.setCircleDasharray(this.initialTimeLeft);
+            // Return pause buttons to unpaused state
+            var pauseBtns = document.querySelectorAll(".pauseBtn");
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = pauseBtns[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var button = _step2.value;
+
+                    button.innerHTML = "<i class=\"material-icons\">pause</i>";
+                    this.isPaused = false;
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
                     }
                 }
             }
@@ -293,42 +321,17 @@ function registerButtons() {
 
     startBtn.addEventListener("click", startTimer);
 
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
-
-    try {
-        for (var _iterator2 = skipBtns[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var button = _step2.value;
-
-            button.addEventListener("click", function () {
-                return timer.skip();
-            });
-        }
-    } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-    } finally {
-        try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-            }
-        } finally {
-            if (_didIteratorError2) {
-                throw _iteratorError2;
-            }
-        }
-    }
-
     var _iteratorNormalCompletion3 = true;
     var _didIteratorError3 = false;
     var _iteratorError3 = undefined;
 
     try {
-        for (var _iterator3 = stopBtns[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var _button = _step3.value;
+        for (var _iterator3 = skipBtns[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var button = _step3.value;
 
-            _button.addEventListener("click", stopTimer);
+            button.addEventListener("click", function () {
+                return timer.skip();
+            });
         }
     } catch (err) {
         _didIteratorError3 = true;
@@ -345,21 +348,15 @@ function registerButtons() {
         }
     }
 
-    var _loop = function _loop(_button2) {
-        _button2.addEventListener("click", function () {
-            return timer.togglePause(_button2);
-        });
-    };
-
     var _iteratorNormalCompletion4 = true;
     var _didIteratorError4 = false;
     var _iteratorError4 = undefined;
 
     try {
-        for (var _iterator4 = pauseBtns[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            var _button2 = _step4.value;
+        for (var _iterator4 = stopBtns[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            var _button = _step4.value;
 
-            _loop(_button2);
+            _button.addEventListener("click", stopTimer);
         }
     } catch (err) {
         _didIteratorError4 = true;
@@ -372,6 +369,37 @@ function registerButtons() {
         } finally {
             if (_didIteratorError4) {
                 throw _iteratorError4;
+            }
+        }
+    }
+
+    var _loop = function _loop(_button2) {
+        _button2.addEventListener("click", function () {
+            return timer.togglePause(_button2);
+        });
+    };
+
+    var _iteratorNormalCompletion5 = true;
+    var _didIteratorError5 = false;
+    var _iteratorError5 = undefined;
+
+    try {
+        for (var _iterator5 = pauseBtns[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var _button2 = _step5.value;
+
+            _loop(_button2);
+        }
+    } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion5 && _iterator5.return) {
+                _iterator5.return();
+            }
+        } finally {
+            if (_didIteratorError5) {
+                throw _iteratorError5;
             }
         }
     }
