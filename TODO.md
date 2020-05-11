@@ -13,7 +13,7 @@
 - [x] Make start page look nice
 - [x] Center up timer page and make it look nice
 - [ ] Get safari (iOS) working, look into broader cross-browser support
-- [ ] Get mobile to look nice
+- [x] Get mobile to look nice
 - [ ] Tidy up CSS
 - [ ] Get a favicon
 - [x] Convert website into SPA
