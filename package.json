@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel scripts -d trans"
+    "build": "babel src/scripts/index.js -o dist/index.js && cp src/scripts/moment-countdown.min.js dist"
   },
   "repository": {
     "type": "git",
