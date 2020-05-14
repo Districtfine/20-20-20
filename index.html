@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <audio hidden>
+  <audio>
     <source src="media/alarm.mp3">
     <source src="media/ogg.mp3">
   </audio>
@@ -25,21 +25,21 @@
     </h2>
     <div id="time-selector">
       Every
-      <input type="number" id='working_timeVal' name='working_timeVal' value="20" max="120" />
-      <select id='working_timeUnit' name="working_timeUnit">
-        <option value='minutes'>minutes</option>
-        <option value='seconds'>seconds</option>
+      <input type="number" id="working_timeVal" name="working_timeVal" value="20" max="120" />
+      <select id="working_timeUnit" name="working_timeUnit">
+        <option value="minutes">minutes</option>
+        <option value="seconds">seconds</option>
       </select>
 
       <p>look 20 feet away from your screen for</p>
 
-      <input type="number" id='resting_timeVal' name="resting_timeVal" value="20" max="120" />
-      <select id='resting_timeUnit' name="resting_timeUnit">
-        <option value='seconds'>seconds</option>
-        <option value='minutes'>minutes</option>
+      <input type="number" id="resting_timeVal" name="resting_timeVal" value="20" max="120" />
+      <select id="resting_timeUnit" name="resting_timeUnit">
+        <option value="seconds">seconds</option>
+        <option value="minutes">minutes</option>
       </select>
       <br>
-      <button id='start'>
+      <button id="start">
         Start
       </button>
     </div>
@@ -58,7 +58,7 @@
       </svg>
       <span class="inside-timer">
         <var id="current-interval"></var>
-        <var id='time-left-display'></var>
+        <var id="time-left-display"></var>
         <span class="timer-controls">
           <button class="stopBtn">
             <i class="material-icons">stop</i>
@@ -77,7 +77,7 @@
     <h3>
       Why use this tool?
     </h3>
-    <p id='first-para'>
+    <p id="first-para">
       The 20-20-20 rule helps reduce Digital Eye strain and keep your eyes healthy. Acorrding to the American Academy of
       Ophthamology, humans normally blink 15 times per minute, but studies show that can be reduced to as little as 5
       times in a minute when using digital devices.
